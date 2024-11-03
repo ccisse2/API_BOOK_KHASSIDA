@@ -32,4 +32,4 @@ exports.getKhassidasWithPagination = (limit, offset, callback) => {
             callback(null, rows, totalRows[0].total);
         });
     })
-}
+};

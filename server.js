@@ -3,6 +3,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const db = require('./db');
 const khassidaRoutes = require('./routes/khassidaRoutes');
+const traductionRoute = require('./routes/traductionKhassidaRoutes');
+const quranRoutes = require('./routes/quranRoutes');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
@@ -13,6 +15,8 @@ app.use(bodyParser.json());
 app.use(errorHandler)
 
 app.use('/api/khassidas', khassidaRoutes);
+app.use('/api/khassidas', traductionRoute);
+app.use('/api/khassidas', quranRoutes);
 
 app.listen(PORT, () => {
     console.log(`Serveur en cours d'éxection sur le port : ${PORT}`);
