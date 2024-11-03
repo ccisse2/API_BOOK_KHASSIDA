@@ -22,9 +22,3 @@ async function uploadFile(localPath, remotePath) {
         await sftp.end();
     }
 }
-
-// Exemple d'utilisation
-const localFilePath = path.resolve(__dirname, 'Module 01 - Support de cours.pdf');
-const remoteFilePath = 'public_html/khassida-pdf/Module-01-Support-de-cours.pdf'; // Spécifiez le nom du fichier
-
-uploadFile(localFilePath, remoteFilePath);
