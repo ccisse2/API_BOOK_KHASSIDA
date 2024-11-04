@@ -1,12 +1,13 @@
 const Client = require('ssh2-sftp-client');
+require('dotenv').config();
 
 const sftp = new Client();
 
 const config = {
-    host: '91.108.101.62',
-    port: 65002, // Port SFTP par défaut
-    username: 'u634672165',
-    password: 'CC2e2chk02@'
+    host: process.env.SERVER_HOST,
+    port: process.env.SERVER_PORT, // Port SFTP par défaut
+    username: process.env.SERVER_USERNAME,
+    password: process.env.SERVER_PASSWORD
 };
 
 async function uploadFile(localPath, remotePath) {
@@ -18,5 +19,7 @@ async function uploadFile(localPath, remotePath) {
         await sftp.end();
     }
 }
+
+
 
 module.exports = { uploadFile };

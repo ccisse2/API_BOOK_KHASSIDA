@@ -166,8 +166,8 @@ router.get('/search', (req, res) => {
         return res.status(400).json({ message: 'Query parameter is required' });
     }
 
-    const sqlQuery = 'SELECT * FROM khassidas WHERE name LIKE ?';
-    const values = [`%${query}%`];
+    const sqlQuery = 'SELECT * FROM khassidas WHERE LOWER(name) LIKE ?';
+    const values = [`${query.toLowerCase()}%`];
 
     db.query(sqlQuery, values, (err, results) => {
         if (err) {
