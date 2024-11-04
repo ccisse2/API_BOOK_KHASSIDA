@@ -7,6 +7,22 @@ const path = require('path');
 const {uploadFile} = require('../serverDistant');
 const { ensureDirectoryExistence, convertImageToWebp } = require('../utils/fileUtils');
 const fs = require('fs');
+const bcrypt = require('bcrypt');
+const rateLimit = require('express-rate-limit');
+const validator = require('validator');
+const jwt = require('jsonwebtoken');
+const secretKey = process.env.SECRET_KEY;
+require('dotenv').config();
+
+
+
+
+
+const searchLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limite chaque IP à 100 requêtes par windowMs
+    message: 'Trop de requêtes, veuillez réessayer plus tard.',
+});
 
 
 
@@ -159,11 +175,11 @@ router.delete('/suppr_khassida/:id', (req, res) => {
     });
 });
 
-router.get('/search', (req, res) => {
-    const query = req.query.q;
+router.get('/search', searchLimiter, (req, res) => {
+    let query = req.query.q;
 
-    if (!query) {
-        return res.status(400).json({ message: 'Query parameter is required' });
+    if (!query || !validator.isAlphanumeric(query, 'fr-FR')) {
+        return res.status(400).json({ message: 'Invalid query parameter' });
     }
 
     const sqlQuery = 'SELECT * FROM khassidas WHERE LOWER(name) LIKE ?';
@@ -176,6 +192,51 @@ router.get('/search', (req, res) => {
         }
 
         res.status(200).json({ data: results });
+    });
+});
+
+router.post('/login', (req, res) => {
+    const { nom, motDePasse } = req.body;
+    console.log(`dans la route post login : ${nom}`)
+
+    if (!nom || !motDePasse) {
+        return res.status(400).json({ message: 'Nom et mot de passe requis' });
+    }
+
+    // Rechercher l'utilisateur dans la base de données
+    const query = 'SELECT * FROM user WHERE nom = ?';
+    db.query(query, [nom], (err, results) => {
+        if (err) {
+            console.error('Erreur lors de la requête à la base de données:', err);
+            return res.status(500).json({ message: 'Erreur interne du serveur' });
+        }
+
+        // Vérifier si l'utilisateur existe
+        if (results.length === 0) {
+            return res.status(401).json({ message: 'Nom ou mot de passe incorrect' });
+        }
+
+        const user = results[0];
+
+        // Comparer le mot de passe haché avec celui fourni par l'utilisateur
+        bcrypt.compare(motDePasse, user.mot_de_passe, (err, isMatch) => {
+            if (err) {
+                console.error('Erreur lors de la comparaison des mots de passe:', err);
+                return res.status(500).json({ message: 'Erreur interne du serveur' });
+            }
+
+            if (!isMatch) {
+                return res.status(401).json({ message: 'Nom ou mot de passe incorrect' });
+            }
+            // Génération du token JWT
+            const token = jwt.sign({ id: user.id, nom: user.nom }, secretKey, { expiresIn: '1h' });
+
+
+            // Si l'authentification est réussie
+            res.status(200).json({ message: 'Connexion réussie',
+                token: token,
+                user: { id: user.id, nom: user.nom }  });
+        });
     });
 });
 
