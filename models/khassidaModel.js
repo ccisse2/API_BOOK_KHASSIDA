@@ -6,9 +6,10 @@ exports.getAllKhassidas = (callback) => {
 };
 
 exports.addKhassida = (name, lienImg, lienPdf, callback) => {
-    db.query('INSERT INTO khassidas (name, lienImg, lienPdf) VALUES (?, ?, ?)', [name, lienImg, lienPdf], callback);
+    const query = 'INSERT INTO khassidas (name, lienImg, lienPdf) VALUES (?, ?, ?)';
+    const values = [name, lienImg, lienPdf];
+    db.query(query, values, callback);
 };
-
 exports.updateKhassida = (id, name, lienImg, lienPdf, callback) => {
     db.query('UPDATE khassidas SET name=?, lienImg=?, lienPdf=? WHERE id=?', [name, lienImg, lienPdf, id], callback);
 };

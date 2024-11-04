@@ -1,6 +1,4 @@
 const Client = require('ssh2-sftp-client');
-const path = require('path');
-const fs = require('fs');
 
 const sftp = new Client();
 
@@ -15,10 +13,10 @@ async function uploadFile(localPath, remotePath) {
     try {
         await sftp.connect(config);
         await sftp.put(localPath, remotePath);
-        console.log('Fichier téléchargé avec succès.');
     } catch (err) {
-        console.error('Erreur lors du téléchargement du fichier :', err);
     } finally {
         await sftp.end();
     }
 }
+
+module.exports = { uploadFile };
