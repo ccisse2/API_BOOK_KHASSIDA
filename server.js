@@ -8,9 +8,13 @@ const quranRoutes = require('./routes/quranRoutes');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
-const PORT =  3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+const corsOptions = {
+    origin: 'https://khassidapdf.com', // Spécifiez votre domaine de production
+    optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(errorHandler)
 
