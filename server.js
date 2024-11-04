@@ -23,7 +23,7 @@ app.use('/api/khassidas', traductionRoute);
 app.use('/api/khassidas', quranRoutes);
 
 app.listen(PORT, () => {
-    console.log(`Serveur en cours d'éxection sur le port : ${PORT}`);
+    console.log(`Serveur en cours d'exécution sur le port : ${PORT}`);
 })
 
 // Optionnel : Gestionnaire d'erreurs global
