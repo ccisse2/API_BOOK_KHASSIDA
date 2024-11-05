@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const corsOptions = {
-    origin: 'https://khassidapdf.com', // Spécifiez votre domaine de production
+    origin: ['https://khassidapdf.com', 'http://localhost:4200'], // Spécifiez votre domaine de production
     optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
