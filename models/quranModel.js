@@ -1,36 +1,40 @@
-// models/khassidaModel.js
 const db = require('../db');
 
-exports.getAllQuran = (callback) => {
-    db.query('SELECT * FROM quran', callback);
+exports.getAllQuran = async () => {
+    const [results] = await db.promise().query('SELECT * FROM quran');
+    return results;
 };
 
-exports.getQuransWithPagination = (limit, offset, callback) => {
-    // Requête SQL pour récupérer les enregistrements avec la limite et l'offset
+exports.getQuransWithPagination = async (limit, offset) => {
     const query = 'SELECT SQL_CALC_FOUND_ROWS * FROM quran LIMIT ? OFFSET ?';
-    db.query(query, [limit, offset], (err, rows) => {
-        if (err) {
-            return callback(err);
-        }
-        // Récupération du nombre total de lignes trouvées pour la pagination
-        db.query('SELECT FOUND_ROWS() AS total', (err, totalRows) => {
-            if (err){
-                return callback(err);
-            }
-            callback(null, rows, totalRows[0].total);
-        });
-    })
+    const [rows] = await db.promise().query(query, [limit, offset]);
+
+    const [totalRows] = await db.promise().query('SELECT FOUND_ROWS() AS total');
+    const totalCount = totalRows[0].total;
+
+    return { rows, totalCount };
 };
 
-exports.addQuran = (name, lienImg, lienPdf, callback) => {
-    db.query('INSERT INTO quran (name, lienImg, lienPdf) VALUES (?, ?, ?)', [name, lienImg, lienPdf], callback);
+exports.addQuran = async (name, lienImg, lienPdf) => {
+    const [result] = await db.promise().query(
+        'INSERT INTO quran (name, lienImg, lienPdf) VALUES (?, ?, ?)',
+        [name, lienImg, lienPdf]
+    );
+    return result;
 };
 
-exports.updateQuran = (id, name, lienImg, lienPdf, callback) => {
-    db.query('UPDATE quran SET name=?, lienImg=?, lienPdf=? WHERE id=?', [name, lienImg, lienPdf, id], callback);
+exports.updateQuran = async (id, name, lienImg, lienPdf) => {
+    const [result] = await db.promise().query(
+        'UPDATE quran SET name=?, lienImg=?, lienPdf=? WHERE id=?',
+        [name, lienImg, lienPdf, id]
+    );
+    return result;
 };
 
-exports.deleteQuran = (id, callback) => {
-    db.query('DELETE FROM quran WHERE id=?', [id], callback);
+exports.deleteQuran = async (id) => {
+    const [result] = await db.promise().query(
+        'DELETE FROM quran WHERE id=?',
+        [id]
+    );
+    return result;
 };
-

@@ -23,7 +23,7 @@ router.get('/list_khassida', khassidaController.getAllKhassidas);
 
 /**
  * @swagger
- * /upload-file:
+ * /ajout_khassida:
  *   post:
  *     summary: Télécharger et enregistrer un Khassida
  *     description: Upload d'un fichier image et PDF pour un Khassida et enregistrement dans la base de données.
@@ -44,7 +44,7 @@ router.get('/list_khassida', khassidaController.getAllKhassidas);
  *       500:
  *         description: Erreur lors de l'upload ou de l'enregistrement du fichier.
  */
-router.post('/upload-file', upload.fields([{name: 'lienImg', maxCount: 1}, {name: 'lienPdf', maxCount: 1}]),
+router.post('/ajout_khassida', upload.fields([{name: 'lienImg', maxCount: 1}, {name: 'lienPdf', maxCount: 1}]),
     khassidaController.uploadAndSaveKhassida);
 
 /**
@@ -73,7 +73,7 @@ router.post('/upload-file', upload.fields([{name: 'lienImg', maxCount: 1}, {name
 router.get('/list', khassidaController.getKhassidasList);
 
 /**
- * @swagger
+ *
  * /ajout_khassida:
  *   post:
  *     summary: Ajouter un nouveau Khassida
@@ -122,7 +122,7 @@ router.post('/ajout_khassida', khassidaController.addKhassida);
 router.get('/search', searchLimiter, khassidaController.searchKhassida);
 
 /**
- * @swagger
+ *
  * /login:
  *   post:
  *     summary: Connexion utilisateur

@@ -7,10 +7,11 @@ const db = require('../db');
 
 /**
  * @swagger
- * /list_khassida:
+ * /khassida/list_khassida:
  *   get:
  *     summary: Récupère tous les Khassidas
  *     description: Cette route permet de récupérer la liste complète des Khassidas.
+ *     tags: [Quassida]
  *     responses:
  *       200:
  *         description: Succès de la récupération.
@@ -46,9 +47,10 @@ exports.getAllKhassidas = async (req, res) => {
 
 /**
  * @swagger
- * /list:
+ * /khassida/list:
  *   get:
  *     summary: Récupère une liste paginée de Khassidas
+ *     tags: [Quassida]
  *     description: Cette route permet de récupérer des Khassidas avec pagination.
  *     parameters:
  *       - in: query
@@ -109,9 +111,10 @@ exports.getKhassidasList = async (req, res) => {
 
 /**
  * @swagger
- * /upload-file:
+ * /khassida/ajout_khassida:
  *   post:
  *     summary: Télécharge les fichiers image et PDF pour un Khassida
+ *     tags: [Quassida]
  *     description: Cette route permet de télécharger une image et un PDF pour un Khassida, de les traiter et de les stocker.
  *     requestBody:
  *       required: true
@@ -155,10 +158,11 @@ exports.uploadAndSaveKhassida = async (req, res) => {
 
 
 /**
- * @swagger
- * /ajout_khassida:
+ *
+ * /khassida/ajout_khassida:
  *   post:
  *     summary: Ajoute un nouveau Khassida
+ *     tags: [Quassida]
  *     description: Cette route permet d'ajouter un nouveau Khassida avec son nom, son image et son PDF.
  *     requestBody:
  *       required: true
@@ -201,9 +205,10 @@ exports.addKhassida = (req, res) => {
 
 /**
  * @swagger
- * /search:
+ * /khassida/search:
  *   get:
  *     summary: Recherche des Khassidas par nom
+ *     tags: [Quassida]
  *     description: Cette route permet de rechercher des Khassidas par leur nom.
  *     parameters:
  *       - in: query

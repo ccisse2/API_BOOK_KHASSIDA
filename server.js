@@ -32,7 +32,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(errorHandler);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-app.use('/khassidas', khassidaRoutes);
+app.use('/khassida', khassidaRoutes);
 app.use('/traductions', traductionRoute);
 app.use('/quran', quranRoutes);
 

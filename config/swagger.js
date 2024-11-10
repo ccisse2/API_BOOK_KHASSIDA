@@ -6,20 +6,20 @@ const swaggerOptions = {
         info: {
             title: 'Khassida API',
             version: '1.0.0',
-            description: 'Documentation de l\'API Khassida',
+            description: 'Documentation de l\'API pour gérer les Khassidas et le Quran',
         },
         servers: [
             {
-                url: 'http://localhost:3000/khassidas/', // Remplacez par l'URL de votre API en production
+                url: 'http://localhost:3000/', // Remplacez par l'URL de votre API en production
                 description: 'Serveur local',
             },
             {
-                url: 'https://api.khassida.com/khassidas/', // Remplacez par l'URL de votre API en production
+                url: 'https://api.khassida.com/', // Remplacez par l'URL de votre API en production
                 description: 'Serveur de production',
             },
         ],
     },
-    apis: ['./routes/*.js'], // Chemin vers vos fichiers de routes où vous ajouterez des annotations
+    apis: ['./controllers/*.js'], // Chemin vers vos fichiers de routes où vous ajouterez des annotations
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
