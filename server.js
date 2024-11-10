@@ -33,7 +33,7 @@ app.use(bodyParser.json());
 app.use(errorHandler);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/khassida', khassidaRoutes);
-app.use('/traductions', traductionRoute);
+app.use('/traduction', traductionRoute);
 app.use('/quran', quranRoutes);
 
 app.listen(PORT, () => {
