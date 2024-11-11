@@ -8,7 +8,7 @@ const upload = require('../middleware/uploadMiddleware');
 const {searchLimiter} = require("../utils/fileUtils");
 
 /**
- * @swagger
+ *
  * /list_khassida:
  *   get:
  *     summary: Récupérer tous les Khassidas
@@ -22,7 +22,7 @@ const {searchLimiter} = require("../utils/fileUtils");
 router.get('/list_khassida', khassidaController.getAllKhassidas);
 
 /**
- * @swagger
+ *
  * /ajout_khassida:
  *   post:
  *     summary: Télécharger et enregistrer un Khassida
@@ -48,7 +48,7 @@ router.post('/ajout_khassida', upload.fields([{name: 'lienImg', maxCount: 1}, {n
     khassidaController.uploadAndSaveKhassida);
 
 /**
- * @swagger
+ *
  * /list:
  *   get:
  *     summary: Récupérer les Khassidas avec pagination
