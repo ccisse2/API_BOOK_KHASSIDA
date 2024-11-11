@@ -19,19 +19,18 @@ const corsOptions = {
     optionsSuccessStatus: 200,
 };
 
-/*app.use((req, res, next) => {
+app.use((req, res, next) => {
     if (req.header('x-forwarded-proto') !== 'https' && process.env.NODE_ENV === 'production') {
         res.redirect(`https://${req.header('host')}${req.url}`);
     } else {
         next();
     }
-});*/
-
+});
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(errorHandler);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/khassida', khassidaRoutes);
 app.use('/traduction', traductionRoute);
 app.use('/quran', quranRoutes);
