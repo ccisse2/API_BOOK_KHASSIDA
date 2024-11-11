@@ -19,7 +19,7 @@ const corsOptions = {
     optionsSuccessStatus: 200,
 };
 
-/*app.use((req, res, next) => {
+app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'https://www.khassidapdf.com');
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
@@ -33,7 +33,7 @@ app.use((req, res, next) => {
     } else {
         next();
     }
-});*/
+});
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
