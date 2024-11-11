@@ -19,7 +19,7 @@ const corsOptions = {
     optionsSuccessStatus: 200,
 };
 
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'https://www.khassidapdf.com');
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
@@ -33,15 +33,15 @@ app.use((req, res, next) => {
     } else {
         next();
     }
-});
+});*/
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(errorHandler);
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/khassida', khassidaRoutes);
 app.use('/traduction', traductionRoute);
 app.use('/quran', quranRoutes);
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.listen(PORT, () => {
     console.log(`Serveur en cours d'exécution sur le port : ${PORT}`);
