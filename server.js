@@ -20,6 +20,14 @@ const corsOptions = {
 };
 
 app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://www.khassidapdf.com');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    next();
+});
+
+app.use((req, res, next) => {
     if (req.header('x-forwarded-proto') !== 'https' && process.env.NODE_ENV === 'production') {
         res.redirect(`https://${req.header('host')}${req.url}`);
     } else {
