@@ -9,10 +9,10 @@ const swaggerOptions = {
             description: 'Documentation de l\'API pour gérer les Khassidas et le Quran',
         },
         servers: [
-           {
+           /*{
                 url: 'http://localhost:3000', // Remplacez par l'URL de votre API en production
                 description: 'Serveur local',
-            },
+            },*/
             {
                 url: 'https://api.khassidapdf.com/', // Remplacez par l'URL de votre API en production
                 description: 'Serveur de production',
